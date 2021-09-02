@@ -4,6 +4,7 @@ import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import LogIn from './components/LogIn'
 import SignUp from './components/SignUp'
+import Covidapi from './components/Covidapi'
 import { AuthProvider } from './components/Auth'
 
 function App() {
@@ -11,10 +12,12 @@ function App() {
     <AuthProvider>
       <Router>
         <Switch>
+
           <Route exact path="/" component={Home} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/covidapi" component={Covidapi} />
         </Switch>
       </Router>
     </AuthProvider>
