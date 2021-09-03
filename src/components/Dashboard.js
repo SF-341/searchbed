@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { AuthContext } from './Auth'
 import firebaseConfig from '../config'
+import Covidapi from './Covidapi'
 
 const DashBoard = () => {
     const { currentUser } = useContext(AuthContext);
@@ -16,6 +17,7 @@ const DashBoard = () => {
             </div>
             <div className="container mt-5">
                 <h1>Welcome</h1>
+                
                 <p>logged in.</p>
                 <button onClick={() => firebaseConfig.auth().signOut()} class="btn btn-danger">Sign Out</button>
             </div>

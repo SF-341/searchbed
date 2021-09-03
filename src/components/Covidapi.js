@@ -3,6 +3,11 @@ import { Redirect } from "react-router-dom";
 import { AuthContext } from "./Auth";
 import firebaseConfig from "../config";
 
+import { makeStyles, withStyle } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
 
 
 
@@ -19,9 +24,20 @@ const Covidapi = () => {
       body: JSON.stringify(),
     }).then((response) => response.json())
       .then(result => {
-        setItems(result[0]);       
+        setItems(result[0]);
       })
   }, [])
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }));
 
 
   //const { currentUser } = useContext(AuthContext);
@@ -30,29 +46,74 @@ const Covidapi = () => {
   //     return <Redirect to="/login" />;
   // }
 
+  const classes = useStyles();
 
   return (
     <div>
-      <div class="container">
-        <div class="col">
-          <div class="p-3 border bg-light">{items.txn_date}</div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row g-3">
-          <div class="col-6">
-            <div class="p-3 border bg-light">New case {items.new_case}</div>
-          </div>
-          <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
-          </div>
-          <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
-          </div>
-          <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
-          </div>
-        </div>
+      <div container className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={6} sm={3}>
+            <Paper className={classes.paper}>
+              <Typography variant="h5" color="inherit">
+              New case
+            </Typography>
+              <Typography variant="h6" color="inherit">
+                {items.new_case}
+              </Typography>
+              <Typography variant="h8" color="inherit">
+                Total case
+              </Typography>
+              <Typography variant="h6" color="inherit">
+              {items.total_case}
+              </Typography></Paper>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Paper className={classes.paper}>
+              <Typography variant="h5" color="inherit">
+              New case excludeabroad
+            </Typography>
+            <Typography variant="h6" color="inherit">
+                {items.new_case_excludeabroad}
+              </Typography>
+              <Typography variant="h8" color="inherit">
+              Total case excludeabroad
+              </Typography>
+              <Typography variant="h6" color="inherit">
+                {items.total_case_excludeabroad}
+              </Typography></Paper>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Paper className={classes.paper}>
+              <Typography variant="h5" color="inherit">
+              New death
+            </Typography>
+            <Typography variant="h6" color="inherit">
+                {items.new_death}
+              </Typography>
+              <Typography variant="h8" color="inherit">
+              Total death
+              </Typography>
+              <Typography variant="h6" color="inherit">
+                {items.total_case}
+              </Typography></Paper>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Paper className={classes.paper}>
+              <Typography variant="h5" color="inherit">
+              New recovered
+              </Typography>
+              <Typography variant="h6" color="inherit">
+                {items.new_recovered}
+              </Typography>
+              <Typography variant="h8" color="inherit">
+              Total recovered
+              </Typography>
+              <Typography variant="h6" color="inherit">
+                {items.total_recovered}
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );
