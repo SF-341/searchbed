@@ -13,12 +13,10 @@ const DashBoard = () => {
 
     return (
         <div>
-            <div>
-            </div>
+
             <div className="container mt-5">
-                <h1>Welcome</h1>
-                
-                <p>logged in.</p>
+                <Covidapi />
+
                 <button onClick={() => firebaseConfig.auth().signOut()} class="btn btn-danger">Sign Out</button>
             </div>
         </div>
