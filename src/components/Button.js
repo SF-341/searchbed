@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
+import { AuthContext } from './Auth'
+import firebaseConfig from '../config'
 import './Button.css';
 import { Link } from 'react-router-dom';
 
@@ -13,22 +16,38 @@ export const Button = ({
   buttonStyle,
   buttonSize
 }) => {
+
+  const { currentUser } = useContext(AuthContext);
+
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
     : STYLES[0];
 
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
-  return (
-    <Link to='/SignUp' className='btn-mobile'>
-      <button
-        className={`btn ${checkButtonStyle} ${checkButtonSize}`}
-        onClick={onClick}
-        type={type}
-      >
-        {children}
-      </button>
-    </Link>
+  if (!currentUser) {
+    return (
+      <div className='btn-mobile'>
+        <button
+          className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+          onClick={onClick}
+          type={type}
+        >
+          {children}
+        </button>
+      </div>);
+  } else {
+    return (
+      <div className='btn-mobile'>
+        <button
+          className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+          onClick={() => firebaseConfig.auth().signOut()}
+          type={type}
+        >
+          {children}
+        </button>
+      </div>);
+  }
 
-  );
+
 };

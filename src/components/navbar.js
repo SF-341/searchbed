@@ -7,12 +7,17 @@ import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar() {
+const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  const closeMobileMenuSignout = () => {
+    firebaseConfig.auth().signOut()
+    setClick(false);
+  }
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
@@ -64,17 +69,33 @@ function Navbar() {
               </Link>
             </li>
 
-            <li>
+            <li>{!currentUser ? <div><Link
+              to='/LogIn'
+              className='nav-links-mobile'
+              onClick={closeMobileMenu}
+            >
+              Log In
+            </Link>
               <Link
-                to='/SignUp'
+                to='/signup'
                 className='nav-links-mobile'
                 onClick={closeMobileMenu}
               >
                 Sign Up
-              </Link>
+              </Link></div> :
+              <div
+                className='nav-links-mobile'
+                onClick={closeMobileMenuSignout}
+              >
+                Sign Out
+              </div>}
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
+          {!currentUser ? button && <Link to='/login' ><Button  buttonStyle='btn--outline' >SIGN IN</Button></Link>
+            : button && <Button buttonStyle='btn--outline'>SIGN OUT</Button>}
+            {!currentUser ? button && <Link to='/signup' ><Button  buttonStyle='btn--outline' >SIGN UP</Button></Link>
+            : <></>}
+          
         </div>
       </nav>
     </>
