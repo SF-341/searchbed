@@ -38,7 +38,7 @@ const Navbar = () => {
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            CCTT
+            CMTT
             <i class='fab fa-typo3' />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
@@ -92,7 +92,7 @@ const Navbar = () => {
             </li>
           </ul>
           {!currentUser ? button && <Link to='/login' ><Button  buttonStyle='btn--outline' >SIGN IN</Button></Link>
-            : button && <Button buttonStyle='btn--outline'>SIGN OUT</Button>}
+            : button && <Button buttonStyle='btn--outline'>SIGN OUT</Button>}<>&nbsp;&nbsp;</> 
             {!currentUser ? button && <Link to='/signup' ><Button  buttonStyle='btn--outline' >SIGN UP</Button></Link>
             : <></>}
           
