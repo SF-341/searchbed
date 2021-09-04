@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link , Redirect } from 'react-router-dom'
 import { AuthContext } from './Auth'
 
 const Home = () => {
@@ -9,13 +9,7 @@ const Home = () => {
         <>
             <div className="container mt-5">
                 <h1>Home</h1>
-                {currentUser ? (
-                    <p>You are logged in - <Link to="/dashboard">View Dashboard</Link></p>
-                ) : (
-                    <p>
-                        <Link to="/login" className="btn btn-primary">Log In</Link> or <Link to="/signup" className="btn btn-success">Sign Up</Link>
-                    </p>
-                )}
+                {!currentUser ?  <Redirect to = "/login"/> : <></>}
             </div>
         </>
     )

@@ -16,8 +16,6 @@ const DashBoard = () => {
 
             <div className="container mt-5">
                 <Covidapi />
-
-                <button onClick={() => firebaseConfig.auth().signOut()} class="btn btn-danger">Sign Out</button>
             </div>
         </div>
     )

@@ -91,7 +91,7 @@ const Covidapi = () => {
       <Container>
         <div Container className={classes.root}>
           <Grid container spacing={3}>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={6}>
               <Paper className={classes.paper}>
                 <Typography variant="h5" color="inherit">
                   <Box className={classes.boxPink} bgcolor="primary.main" color="primary.contrastText">
@@ -108,7 +108,7 @@ const Covidapi = () => {
                   {items.total_case}
                 </Typography></Paper>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={6}>
               <Paper className={classes.paper}>
                 
                   <Box className={classes.boxBlue} bgcolor="primary.main" color="primary.contrastText">
@@ -126,7 +126,7 @@ const Covidapi = () => {
                   {items.total_case_excludeabroad}
                 </Typography></Paper>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={6}>
               <Paper className={classes.paper}>
                 <Typography variant="h5" color="inherit">
                   <Box className={classes.boxRed} bgcolor="primary.main" color="primary.contrastText">
@@ -143,7 +143,7 @@ const Covidapi = () => {
                   {items.total_case}
                 </Typography></Paper>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={6}>
               <Paper className={classes.paper}>
                 <Typography variant="h5" color="inherit">
                   <Box className={classes.boxGreen} bgcolor="primary.main" color="primary.contrastText">
