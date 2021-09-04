@@ -9,14 +9,21 @@ const SignUp = () => {
         e.preventDefault();
         const { email, password } = e.target.elements;
 
-        try {
+        if (email.value == "" || password.value == "") {
+            alert("email and password is required");
+        } else {
+            try {
 
-            firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value);
-            setCurrentUser(true);
+                firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value);
+                setCurrentUser(true);
 
-        } catch(error) {
-            alert(error);
+            } catch (error) {
+                alert(error);
+            }
         }
+
+
+
     }
 
     if (currentUser) {
@@ -26,19 +33,19 @@ const SignUp = () => {
     return (
         <>
             <div className="container mt-5">
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-                <label for="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                
-            </div>
-            <div className="mb-3">
-                <label for="exampleInputPassword1" className="form-label">Password</label>
-                <input type="password" name="password" className="form-control" id="exampleInputPassword1" />
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                <h1>Sign Up</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label for="exampleInputEmail1" className="form-label">Email address</label>
+                        <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+
+                    </div>
+                    <div className="mb-3">
+                        <label for="exampleInputPassword1" className="form-label">Password</label>
+                        <input type="password" name="password" className="form-control" id="exampleInputPassword1" />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
             </div>
         </>
     )
