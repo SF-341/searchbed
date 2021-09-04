@@ -5,14 +5,15 @@ import Dashboard from './components/Dashboard'
 import LogIn from './components/LogIn'
 import SignUp from './components/SignUp'
 import Covidapi from './components/Covidapi'
+import Navbar from './components/Navbar'
 import { AuthProvider } from './components/Auth'
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <Navbar />
         <Switch>
-
           <Route exact path="/" component={Home} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/login" component={LogIn} />
