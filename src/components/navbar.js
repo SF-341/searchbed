@@ -91,9 +91,10 @@ const Navbar = () => {
               </div>}
             </li>
           </ul>
-          {!currentUser ? button && <Link to='/login' ><Button  buttonStyle='btn--outline' >SIGN IN</Button></Link>
-            : button && <Button buttonStyle='btn--outline'>SIGN OUT</Button>}<>&nbsp;&nbsp;</> 
-            {!currentUser ? button && <Link to='/signup' ><Button  buttonStyle='btn--outline' >SIGN UP</Button></Link>
+          
+          {!currentUser ? button && <Link to='/login' ><Button  buttonStyle='btn--outline' >SIGN&nbsp;IN</Button></Link>
+            : button && <Button buttonStyle='btn--outline'>SIGN&nbsp;OUT</Button>}<>&nbsp;&nbsp;</> 
+            {!currentUser ? button && <Link to='/signup' ><Button  buttonStyle='btn--outline' >SIGN&nbsp;UP</Button></Link>
             : <></>}
           
         </div>
