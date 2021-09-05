@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import firebase from "../config";
-import { v4 as uuidv4 } from 'uuid';
+
 
 export default function UserSetting({infinite}) {
   const [User, setUser] = useState([]);
