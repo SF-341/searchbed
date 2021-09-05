@@ -15,6 +15,7 @@ import { Container } from '@material-ui/core/'
 
 const Covidapi = () => {
   const [items, setItems] = useState([]);
+  const [checkItems, setCheckItems] = useState(true);
 
   useEffect(() => {
     fetch("https://covid19.ddc.moph.go.th/api/Cases/today-cases-all", {
@@ -26,7 +27,12 @@ const Covidapi = () => {
       body: JSON.stringify(),
     }).then((response) => response.json())
       .then(result => {
-        setItems(result[0]);
+        if (result.length === 0) {
+          setCheckItems(false);
+        }else{
+          setItems(result[0]);
+        }
+        
       })
   }, [])
 
@@ -99,13 +105,13 @@ const Covidapi = () => {
                   </Box>
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.new_case}
+                  {checkItems ? items.new_case : "0"}
                 </Typography>
                 <Typography variant="h8" color="inherit">
                   Total case
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.total_case}
+                  {checkItems ? items.total_case: "0"}
                 </Typography></Paper>
             </Grid>
             <Grid item xs={6} sm={6}>
@@ -117,13 +123,13 @@ const Covidapi = () => {
                   </Box>
                 
                 <Typography variant="h6" color="inherit">
-                  {items.new_case_excludeabroad}
+                  {checkItems ? items.new_case_excludeabroad : "0"}
                 </Typography>
                 <Typography variant="h8" color="inherit">
                   Total case excludeabroad
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.total_case_excludeabroad}
+                  {checkItems ? items.total_case_excludeabroad : "0"}
                 </Typography></Paper>
             </Grid>
             <Grid item xs={6} sm={6}>
@@ -134,13 +140,13 @@ const Covidapi = () => {
                   </Box>
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.new_death}
+                  {checkItems ? items.new_death : "0"}
                 </Typography>
                 <Typography variant="h8" color="inherit">
                   Total death
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.total_case}
+                  {checkItems ? items.total_case : "0"}
                 </Typography></Paper>
             </Grid>
             <Grid item xs={6} sm={6}>
@@ -151,13 +157,13 @@ const Covidapi = () => {
                   </Box>
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.new_recovered}
+                  {checkItems ? items.new_recovered : "0"}
                 </Typography>
                 <Typography variant="h8" color="inherit">
                   Total recovered
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {items.total_recovered}
+                  {checkItems ? items.total_recovered : "0"} 
                 </Typography>
               </Paper>
             </Grid>
