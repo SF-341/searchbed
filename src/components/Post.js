@@ -79,14 +79,12 @@ const Post = () => {
                 </IconButton>
                 <IconButton aria-label="DeleteIcon">
                     <DeleteIcon fontSize="large" />
-                    </IconButton>
-                    
+                </IconButton>
+
             </CardActions>
-            
+
         </Card>
     )
-
-
 }
 
 export default Post;
