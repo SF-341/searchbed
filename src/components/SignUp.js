@@ -35,7 +35,7 @@ const SignUp = () => {
             alert("passwords are not the same");
         } else {
             try {
-                firebaseConfig.auth().createUserWithEmailAndPassword(email, password);
+                firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value);
                 setCurrentUser(true);
                 addUser();
 
