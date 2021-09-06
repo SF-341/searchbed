@@ -23,17 +23,18 @@ const Post = ({id}) => {
 
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
+    const [username, setUsername] = useState();
+    const [dateTime, setDateTime] = useState();
 
 
-    console.log("tt", id);
     let docid = "Posts/"+id;
-    console.log("name", docid);
     let documentRef = firebaseConfig.firestore().doc(docid);
     documentRef.get().then(documentSnapshot => {
         let data = documentSnapshot.data();
         setTitle(data.title);
         setDetails(data.details);
-        console.log("data", data);
+        setUsername(data.username);
+        setDateTime(data.dateTime);
     })
 
     const useStyles = makeStyles((theme) => ({
@@ -69,8 +70,8 @@ const Post = ({id}) => {
                        <h1>U</h1>
                     </Avatar>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={username}
+                subheader={dateTime}
             />
             <CardMedia
                 className={classes.media}

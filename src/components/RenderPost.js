@@ -7,6 +7,8 @@ import { collection, getDocs } from "firebase/firestore";
 import Post from './Post';
 
 const RenderPost = () => {
+    const Auth = firebaseConfig.auth();
+    const user = Auth.currentUser;
 
     const [postList, setPostList] = useState();
 
@@ -20,7 +22,7 @@ const RenderPost = () => {
                 List.push(doc.id);
             })
             setPostList(List);
-            console.log(List)
+
         }
         );
 

@@ -6,8 +6,8 @@ import firebaseConfig from "../config";
 const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const { email, password } = e.target.elements;
+    
 
     try {
       firebaseConfig
