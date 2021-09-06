@@ -7,7 +7,7 @@ import SignUp from './components/SignUp'
 import Covidapi from './components/Covidapi'
 import Navbar from './components/Navbar'
 import { AuthProvider } from './components/Auth'
-import Post from './components/Post'
+import RenderPost from './components/RenderPost'
 import CreatePost from './components/CreatePost'
 
 function App() {
@@ -21,9 +21,8 @@ function App() {
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/covidapi" component={Covidapi} />
-          <Route exact path="/post" component={Post} />
+          <Route exact path="/renderpost" component={RenderPost} />
           <Route exact path="/createpost" component={CreatePost} />
-
         </Switch>
       </Router>
     </AuthProvider>

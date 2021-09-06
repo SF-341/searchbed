@@ -19,10 +19,22 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
-const Post = () => {
+const Post = ({id}) => {
 
-    const ref = firebaseConfig.firestore().collection("posts");
+    const [title, setTitle] = useState();
+    const [details, setDetails] = useState();
 
+
+    console.log("tt", id);
+    let docid = "Posts/"+id;
+    console.log("name", docid);
+    let documentRef = firebaseConfig.firestore().doc(docid);
+    documentRef.get().then(documentSnapshot => {
+        let data = documentSnapshot.data();
+        setTitle(data.title);
+        setDetails(data.details);
+        console.log("data", data);
+    })
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -30,7 +42,7 @@ const Post = () => {
         },
         media: {
             height: 0,
-            paddingTop: '56.25%', // 16:9
+            paddingTop: '56.25%'
         },
         expand: {
             transform: 'rotate(0deg)',
@@ -47,14 +59,14 @@ const Post = () => {
         },
     }));
 
-    const classes = useStyles();
 
+    const classes = useStyles();
     return (
         <Card className={classes.root}>
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
+                       <h1>U</h1>
                     </Avatar>
                 }
                 title="Shrimp and Chorizo Paella"
@@ -67,7 +79,10 @@ const Post = () => {
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                    1
+                    <h1>{title}</h1>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    <h5>{details}</h5>
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

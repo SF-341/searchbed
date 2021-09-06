@@ -1,15 +1,19 @@
 import React, { useContext } from 'react'
 import { Link , Redirect } from 'react-router-dom'
 import { AuthContext } from './Auth'
+import CreatePost from './CreatePost'
+import RenderPost from './RenderPost'
 
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
 
     return (
         <>
-            <div className="container mt-5">
-                <h1>Home</h1>
-                {!currentUser ?  <Redirect to = "/login"/> : <></>}
+            <div className="container mt-4">
+                <CreatePost/>
+                {!currentUser ?  <Redirect to = "/login"/> : <>.
+                <RenderPost/>
+                </>}
             </div>
         </>
     )
