@@ -7,6 +7,7 @@ import RenderPost from './RenderPost'
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
 
+    
     return (
         <>
             <div className="container mt-4">

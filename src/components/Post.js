@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import firebaseConfig from '../config'
+import { firestore, storage } from '../config'
 import { AuthContext } from './Auth'
 import { Redirect } from 'react-router-dom'
 
@@ -19,30 +19,37 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
-const Post = ({id}) => {
-
+const Post = ({ id }) => {
+    console.log(id)
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
     const [username, setUsername] = useState();
     const [dateTime, setDateTime] = useState();
+    const [Url, setUrl] = useState("");
 
-
-    let docid = "Posts/"+id;
-    let documentRef = firebaseConfig.firestore().doc(docid);
+    let storageRef = storage.ref();
+    let documentRef = firestore.doc("Posts/" + id);
     documentRef.get().then(documentSnapshot => {
         let data = documentSnapshot.data();
         setTitle(data.title);
         setDetails(data.details);
         setUsername(data.username);
         setDateTime(data.dateTime);
+
+        var imgRef = storageRef.child('images/' + data.imageName);
+        imgRef.getDownloadURL()
+            .then((url) => {
+                setUrl(url);
+            }).catch((error) => {
+                console.log(error);
+            })
     })
 
     const useStyles = makeStyles((theme) => ({
         root: {
-            maxWidth: 345,
+            maxWidth: 700,
         },
         media: {
-            height: 0,
             paddingTop: '56.25%'
         },
         expand: {
@@ -67,7 +74,7 @@ const Post = ({id}) => {
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                       <h1>U</h1>
+                        <h1>U</h1>
                     </Avatar>
                 }
                 title={username}
@@ -75,8 +82,8 @@ const Post = ({id}) => {
             />
             <CardMedia
                 className={classes.media}
-                image="/static/images/cards/paella.jpg"
-                title="Paella dish"
+                image= {Url}
+
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">

@@ -1,13 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import Container from '@material-ui/core/Container'
+import React, { useState } from 'react'
+import {Typography, Button, Container, makeStyles, TextField} from '@material-ui/core'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
-import { makeStyles } from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
-import { Redirect } from 'react-router-dom'
-import { AuthContext } from './Auth'
-import firebaseConfig from '../config'
+
+
+import firebaseConfig,{ storage,firestore } from '../config'
 
 
 const CreatePost = () => {
@@ -15,11 +11,12 @@ const CreatePost = () => {
     const user = Auth.currentUser;
 
 
-    const refPost = firebaseConfig.firestore().collection("Posts");
-    const refUser = firebaseConfig.firestore().collection("User");
+    const refPost = firestore.collection("Posts");
+    const refUser = firestore.collection("User");
 
     const [title, setTitle] = useState("");
     const [details, setDetails] = useState("");
+    const [image, setImage] = useState(null);
 
     const addPost = () => {
         const email = user.email;
@@ -29,11 +26,23 @@ const CreatePost = () => {
                 if (doc.data().email === email) {
                     let username = doc.data().username;
                     let dateTime = Date();
-                    refPost.add({ title, details, username, dateTime });
+                    if (image != null) {
+                        let imageName =image.name;
+                        uploadimage();
+                        refPost.add({ title, details, username, imageName, dateTime });
+                    }else {
+                        let imageName = null;
+                        refPost.add({ title, details, username, imageName, dateTime });
+                    }
+                    
                 }
             })
         }
         );
+    }
+
+    const uploadimage = () => {
+        storage.ref('images/'+image.name).put(image);
     }
 
     const handleChange = (e) => {
@@ -41,6 +50,10 @@ const CreatePost = () => {
             setTitle(e.target.value)
         } else if (e.target.name === "details") {
             setDetails(e.target.value)
+        } else if (e.target.name === "image") {
+            console.log(e.target.files[0]);
+            setImage(e.target.files[0])
+
         }
     }
 
@@ -50,7 +63,10 @@ const CreatePost = () => {
     }
 
     const useStyles = makeStyles({
+        
         field: {
+
+            maxWidth: 700,
             marginTop: 20,
             marginBottom: 20,
             display: 'block'
@@ -95,13 +111,16 @@ const CreatePost = () => {
                     required
                 />
 
+                <input type="file" onChange={handleChange} name="image" />
+
                 <Button
                     type="submit"
                     color="secondary"
                     variant="contained"
+                    position="absolute"
                     endIcon={<KeyboardArrowRightIcon />}
                 >
-                    submit
+                    Post
                 </Button>
             </form>
         </Container>

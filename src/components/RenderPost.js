@@ -1,14 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import firebaseConfig from "../config";
-import { collection, getDocs } from "firebase/firestore";
 
+import { Container } from '@material-ui/core'
 
 
 import Post from './Post';
 
 const RenderPost = () => {
-    const Auth = firebaseConfig.auth();
-    const user = Auth.currentUser;
 
     const [postList, setPostList] = useState();
 
@@ -22,17 +20,20 @@ const RenderPost = () => {
                 List.push(doc.id);
             })
             setPostList(List);
-
         }
         );
 
     }, [])
+    console.log(postList)
+
 
     return (
+        <Container>
+            <div>
+                {postList && postList.map(key => (<Post id={key} />))}
+            </div>
+        </Container>
 
-        <div>
-            {postList ? postList.map(key => (<Post id={key} />)) : ""}
-        </div>
     )
 }
 
