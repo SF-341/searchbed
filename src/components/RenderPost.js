@@ -24,7 +24,7 @@ const RenderPost = () => {
         );
 
     }, [])
-    console.log(postList)
+
 
 
     return (

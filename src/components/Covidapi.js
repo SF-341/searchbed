@@ -146,7 +146,7 @@ const Covidapi = () => {
                   Total death
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {checkItems ? items.total_case : "0"}
+                  {checkItems ? items.total_death : "0"}
                 </Typography></Paper>
             </Grid>
             <Grid item xs={6} sm={6}>

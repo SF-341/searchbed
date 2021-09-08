@@ -20,7 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const Post = ({ id }) => {
-    console.log(id)
+
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
     const [username, setUsername] = useState();
@@ -50,6 +50,7 @@ const Post = ({ id }) => {
             maxWidth: 700,
         },
         media: {
+            hight: 0,
             paddingTop: '56.25%'
         },
         expand: {
@@ -82,7 +83,8 @@ const Post = ({ id }) => {
             />
             <CardMedia
                 className={classes.media}
-                image= {Url}
+                
+                image={Url}
 
             />
             <CardContent>
