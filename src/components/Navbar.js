@@ -107,7 +107,7 @@ const Navbar = () => {
                     className="nav-links-mobile"
                     onClick={closeMobileMenu}
                   >
-                    Log In
+                    Sign In
                   </Link>
                   <Link
                     to="/signup"

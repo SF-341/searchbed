@@ -11,7 +11,7 @@ const SignUp = () => {
     const ref = firebaseConfig.firestore().collection("User");
 
     const addUser = () => {
-        ref.add({ name, username, email });
+        ref.add({ name, lastname, username, email, subDistrict, distric, province });
     }
 
 
@@ -22,7 +22,7 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [lastname, setLastname] = useState("");
     const [subDistrict, setSubDistrict] = useState("");
-    const [Distric, setDistrict] = useState("");
+    const [distric, setDistrict] = useState("");
     const [province, setProvince] = useState("");
 
 

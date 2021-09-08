@@ -4,13 +4,12 @@ import { AuthContext } from "./Auth";
 import firebaseConfig from "../config";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid, Button, Card } from '@material-ui/core';
+import { TextField, Grid, Button, Paper, Container, Card, Box } from '@material-ui/core';
 
 const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
-
 
     try {
       firebaseConfig
@@ -23,16 +22,21 @@ const LogIn = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
+
         margin: theme.spacing(7),
         width: 300,
 
-      },
-      card: {
-        Width: 300,
-        
       }
 
     },
+
+    card: {
+      minWidth: 400,
+      background:'#F9F9F9',
+    },
+    headfront: {
+      color : "#515151",
+    }
   }));
 
   const classes = useStyles();
@@ -43,16 +47,16 @@ const LogIn = () => {
   }
 
   return (
-    <>
-      <div className="container mt-5">
 
-        <Grid container spacing={3}>
-          <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
+    <div className="container mt-5">
 
+      <Grid container spacing={1}>
 
-            <Grid container direction="row" justifyContent="center" xs spacing={3}>
-            
-              <h1>Log In</h1>
+        <Grid container justifyContent="center" xs={12} md={6} spacing={0}>
+          <Card elevation={3} className={classes.card}>
+
+            <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off" align="center">
+              <h1 className={classes.headfront}>Log In</h1>
               <Grid item >
                 <TextField type="email" label="Email address" name="email" className="form-control" required />
               </Grid>
@@ -62,17 +66,20 @@ const LogIn = () => {
               <Grid item >
                 <Button type="submit" size="large" variant="outlined">Submit</Button>
               </Grid>
-            </Grid>
-          </form>
-          <Grid item xs>
-            asdasdasd
-          </Grid>
+            </form>
+          </Card>
         </Grid>
 
 
+        <Grid container justifyContent="center" xs={12} md={6} >
+          <h5>asdasdasd</h5>
+        </Grid>
+      </Grid>
 
-      </div>
-    </>
+
+
+    </div>
+
   );
 };
 
