@@ -4,7 +4,7 @@ import firebaseConfig from "../config";
 import { Container } from '@material-ui/core'
 
 
-import Post from './Post';
+import Post from './post/Post';
 
 const RenderPost = () => {
 
@@ -18,6 +18,7 @@ const RenderPost = () => {
             const ListSnapshot = querySnapshot.docs;
             ListSnapshot.forEach(doc => {
                 List.push(doc.id);
+                console.log("asdad", doc.id);
             })
             setPostList(List);
         }
@@ -30,7 +31,7 @@ const RenderPost = () => {
     return (
         <Container>
             <div>
-                {postList && postList.map(key => (<Post id={key} />))}
+                {postList && postList.map((key) => (<Post id={key} />))}
             </div>
         </Container>
 

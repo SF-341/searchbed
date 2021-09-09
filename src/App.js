@@ -8,6 +8,7 @@ import Covidapi from './components/Covidapi'
 import Navbar from './components/Navbar'
 import { AuthProvider } from './components/Auth'
 import RenderPost from './components/RenderPost'
+import Profile from './components/Profile'
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/covidapi" component={Covidapi} />
           <Route exact path="/renderpost" component={RenderPost} />
-
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </Router>
     </AuthProvider>

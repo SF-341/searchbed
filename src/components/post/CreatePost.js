@@ -3,7 +3,7 @@ import {Typography, Button, Container, makeStyles, TextField} from '@material-ui
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 
 
-import firebaseConfig,{ storage,firestore } from '../config'
+import firebaseConfig,{ storage,firestore } from '../../config'
 
 
 const CreatePost = () => {

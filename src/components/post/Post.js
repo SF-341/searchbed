@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { firestore, storage } from '../config'
-import { AuthContext } from './Auth'
+import { firestore, storage } from '../../config'
+import { AuthContext } from '../Auth'
 import { Redirect } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const Post = ({ id }) => {
-
+    
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
     const [username, setUsername] = useState();
