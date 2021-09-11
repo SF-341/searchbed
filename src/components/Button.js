@@ -25,6 +25,12 @@ export const Button = ({
 
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
+  const handleClick = () => {
+    localStorage.clear();
+    
+    firebaseConfig.auth().signOut();
+  }
+
   if (!currentUser) {
     return (
       <div className='btn-mobile'>
@@ -41,7 +47,7 @@ export const Button = ({
       <div className='btn-mobile'>
         <button
           className={`btn ${checkButtonStyle} ${checkButtonSize}`}
-          onClick={() => firebaseConfig.auth().signOut()}
+          onClick={handleClick}
           type={type}
         >
           {children}

@@ -18,7 +18,6 @@ const RenderPost = () => {
             const ListSnapshot = querySnapshot.docs;
             ListSnapshot.forEach(doc => {
                 List.push(doc.id);
-                console.log("asdad", doc.id);
             })
             setPostList(List);
         }

@@ -9,6 +9,7 @@ import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import GetUser from './GetUserprofile'
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
@@ -19,7 +20,9 @@ const Navbar = () => {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const closeMobileMenuSignout = () => {
+    localStorage.clear();
     firebaseConfig.auth().signOut();
+    <Redirect to="/" />
     setClick(false);
   };
 
@@ -40,6 +43,7 @@ const Navbar = () => {
   useEffect(() => {
     if (user !== null){
       setEmail(user.email);
+      GetUser.getUser(user.email)
     }
     showButton();
   }, []);

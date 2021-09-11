@@ -7,14 +7,13 @@ import RenderPost from './RenderPost'
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
 
+    console.log(currentUser)
     
     return (
         <>
             <div className="container mt-4">
                 <CreatePost/>
-                {!currentUser ?  <Redirect to = "/login"/> : <>.
-                <RenderPost/>
-                </>}
+                {!currentUser ?  <Redirect to = "/login"/> : <> <RenderPost/> </>}
             </div>
         </>
     )

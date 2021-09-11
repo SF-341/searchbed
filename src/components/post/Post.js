@@ -20,12 +20,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const Post = ({ id }) => {
-    
+
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
     const [username, setUsername] = useState();
     const [dateTime, setDateTime] = useState();
     const [Url, setUrl] = useState("");
+    const [checkImg, setCheckImg] = useState(false);
 
     let storageRef = storage.ref();
     let documentRef = firestore.doc("Posts/" + id);
@@ -36,13 +37,19 @@ const Post = ({ id }) => {
         setUsername(data.username);
         setDateTime(data.dateTime);
 
-        var imgRef = storageRef.child('images/' + data.imageName);
-        imgRef.getDownloadURL()
-            .then((url) => {
-                setUrl(url);
-            }).catch((error) => {
-                console.log(error);
-            })
+        if (data.imageName != null) {
+            setCheckImg(true);
+            var imgRef = storageRef.child('images/' + data.imageName);
+            imgRef.getDownloadURL()
+                .then((url) => {
+                    setUrl(url);
+                }).catch((error) => {
+                    console.log(error);
+                })
+        } else {
+            setCheckImg(false);
+        }
+
     })
 
     const useStyles = makeStyles((theme) => ({
@@ -81,12 +88,8 @@ const Post = ({ id }) => {
                 title={username}
                 subheader={dateTime}
             />
-            <CardMedia
-                className={classes.media}
-                
-                image={Url}
+            {checkImg ? <CardMedia className={classes.media} image={Url} /> : <></>}
 
-            />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
                     <h1>{title}</h1>

@@ -11,7 +11,7 @@ const SignUp = () => {
     const ref = firebaseConfig.firestore().collection("User");
 
     const addUser = () => {
-        ref.add({ name, lastname, username, email, subDistrict, distric, province });
+        ref.add({ name, lastname, username, email, subdistrict, district, province });
     }
 
 
@@ -21,8 +21,8 @@ const SignUp = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [lastname, setLastname] = useState("");
-    const [subDistrict, setSubDistrict] = useState("");
-    const [distric, setDistrict] = useState("");
+    const [subdistrict, setSubdistrict] = useState("");
+    const [district, setDistrict] = useState("");
     const [province, setProvince] = useState("");
 
 
@@ -35,9 +35,9 @@ const SignUp = () => {
             setEmail(e.target.value)
         } else if (e.target.name === "lastname") {
             setLastname(e.target.value)
-        } else if (e.target.name === "subdistric") {
-            setSubDistrict(e.target.value)
-        } else if (e.target.name === "distric") {
+        } else if (e.target.name === "subdistrict") {
+            setSubdistrict(e.target.value)
+        } else if (e.target.name === "district") {
             setDistrict(e.target.value)
         } else if (e.target.name === "province") {
             setProvince(e.target.value)
@@ -96,8 +96,8 @@ const SignUp = () => {
                     </Grid>
 
                     <Grid container spacing={3}>
-                        <Grid item xs><TextField id="standard-basic" label="Sub-Distric" name="subdistric" className="form-control" onChange={handleChange} required /></Grid>
-                        <Grid item xs><TextField id="standard-basic" label="Distric" name="distric" className="form-control" onChange={handleChange} required /></Grid>
+                        <Grid item xs><TextField id="standard-basic" label="Sub-District" name="subdistrict" className="form-control" onChange={handleChange} required /></Grid>
+                        <Grid item xs><TextField id="standard-basic" label="District" name="district" className="form-control" onChange={handleChange} required /></Grid>
                         <Grid item xs><TextField id="standard-basic" label="Province" name="province" className="form-control" onChange={handleChange} required /></Grid>
                     </Grid>
 
