@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react'
 import { firestore, storage } from '../../config'
-import { AuthContext } from '../Auth'
-import { Redirect } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -16,6 +14,9 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
+import clsx from 'clsx';
+import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
+import Collapse from '@material-ui/core/Collapse';
 
 
 
@@ -75,6 +76,12 @@ const Post = ({ id }) => {
         },
     }));
 
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
 
     const classes = useStyles();
     return (
@@ -108,8 +115,21 @@ const Post = ({ id }) => {
                 <IconButton aria-label="DeleteIcon">
                     <DeleteIcon fontSize="large" />
                 </IconButton>
-
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="comment"
+                >
+                    <QuestionAnswerOutlinedIcon />
+                </IconButton>
             </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                </CardContent>
+            </Collapse>
 
         </Card>
     )

@@ -7,7 +7,6 @@ import RenderPost from './RenderPost'
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
 
-    console.log(currentUser)
     
     return (
         <>
