@@ -124,13 +124,13 @@ const Profile = () => {
       <h1>Profile</h1>
       <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
         <Grid container spacing={5}>
-          <Grid item xs={8}><TextField id="standard-basic" label="Name" name="firstname" className="form-control" disabled={text} defaultValue={firstName} onChange={handleChange} /></Grid>
-          <Grid item xs={8}><TextField id="standard-basic" label="Lastname" name="lastname" className="form-control" disabled={text} defaultValue={lastName} onChange={handleChange} /></Grid>
-          <Grid item xs={8}><TextField id="standard-basic" label="Username" name="username" className="form-control" disabled={text} defaultValue={userName} onChange={handleChange} /></Grid>
-          <Grid item xs={8}><TextField id="standard-basic" label="Email" name="email" className="form-control" disabled defaultValue={email} onChange={handleChange} /></Grid>
-          <Grid item xs={8}><TextField id="standard-basic" label="Sub-district" name="subdistrict" className="form-control" disabled={text} defaultValue={subDistrict} onChange={handleChange} /></Grid>
-          <Grid item xs={8}><TextField id="standard-basic" label="District" name="district" className="form-control" disabled={text} defaultValue={district} onChange={handleChange} /></Grid>
-          <Grid item xs={8}><TextField id="standard-basic" label="Province" name="province" className="form-control" disabled={text} defaultValue={province} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="Name" name="firstname" className="form-control" disabled={text} defaultValue={firstName} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="Lastname" name="lastname" className="form-control" disabled={text} defaultValue={lastName} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="Username" name="username" className="form-control" disabled={text} defaultValue={userName} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="Email" name="email" className="form-control" disabled defaultValue={email} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="Sub-district" name="subdistrict" className="form-control" disabled={text} defaultValue={subDistrict} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="District" name="district" className="form-control" disabled={text} defaultValue={district} onChange={handleChange} /></Grid>
+          <Grid item xs={8}><TextField label="Province" name="province" className="form-control" disabled={text} defaultValue={province} onChange={handleChange} /></Grid>
         </Grid>
         <Grid container spacing={5}>
           <Grid item ><Button size="large" variant="outlined" onClick={edit}>Edit</Button></Grid>

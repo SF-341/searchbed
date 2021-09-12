@@ -7,8 +7,12 @@ class GetUserprofile {
         this.id = '';
         this.ListUser = {};
         this.refUser = firestore.collection("User")
+        this.userName = "";
     }
 
+    getUserName() {
+        return this.userName;
+    }
 
 
     getUser(Temp) {
@@ -17,10 +21,15 @@ class GetUserprofile {
             ListSnapshot.forEach(doc => {
                 if (doc.data().email === Temp) {
                     this.id = doc.id;
+                    this.userName = doc.data().username;
                     this.ListUser = doc.data();
                 }
             })
         })
+    }
+
+    clearUser(){
+        this.ListUser = {};
     }
 }
 export default new GetUserprofile();

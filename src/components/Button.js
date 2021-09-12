@@ -4,6 +4,7 @@ import { AuthContext } from './Auth'
 import firebaseConfig from '../config'
 import './Button.css';
 import { Link } from 'react-router-dom';
+import GetUser from './GetUserprofile'
 
 const STYLES = ['btn--primary', 'btn--outline'];
 
@@ -27,7 +28,7 @@ export const Button = ({
 
   const handleClick = () => {
     localStorage.clear();
-    
+    GetUser.clearUser();
     firebaseConfig.auth().signOut();
   }
 

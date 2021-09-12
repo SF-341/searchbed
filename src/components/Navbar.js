@@ -5,18 +5,18 @@ import firebaseConfig from "../config";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import { deepPurple } from "@material-ui/core/colors";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import GetUser from './GetUserprofile'
-import LOGO5 from '../LOGO/LOGO5.png'
+
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-  const [email, setEmail] = useState("");
+  const userName = GetUser.getUserName();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -25,12 +25,8 @@ const Navbar = () => {
     firebaseConfig.auth().signOut();
     <Redirect to="/" />
     setClick(false);
+    GetUser.clearUser();
   };
-
-  const Auth = firebaseConfig.auth();
-  const user = Auth.currentUser;
-
-  
 
 
   const showButton = () => {
@@ -42,10 +38,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (user !== null){
-      setEmail(user.email);
-      GetUser.getUser(user.email)
-    }
     showButton();
   }, []);
 
@@ -157,7 +149,7 @@ const Navbar = () => {
               <></>
             ) : (
               <Link to="/profile" style={{ textDecoration: 'none' }}>
-                <Avatar className={classes.purple}>{email[0]}</Avatar></Link>
+                <Avatar className={classes.purple}>{userName[0]}</Avatar></Link>
             )}
           </div>
         </div>

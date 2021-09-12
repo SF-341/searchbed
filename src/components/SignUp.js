@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import firebaseConfig from '../config'
+import GetUser from './GetUserprofile'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Button } from '@material-ui/core';
@@ -46,6 +47,7 @@ const SignUp = () => {
 
 
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -55,9 +57,11 @@ const SignUp = () => {
             alert("passwords are not the same");
         } else {
             try {
-                firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value);
-                setCurrentUser(true);
-                addUser();
+                firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => {
+                    setCurrentUser(true);
+                    addUser();
+                    GetUser.getUser(email.value)
+                })
 
             } catch (error) {
                 alert(error);
@@ -90,14 +94,14 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
                     <Grid container spacing={3}>
                         <Grid item xs><TextField type="text" label="Name" name="name" className="form-control" onChange={handleChange} required /></Grid>
-                        <Grid item xs><TextField id="standard-basic" label="Lastname" name="lastname" className="form-control" onChange={handleChange} required /></Grid>
+                        <Grid item xs><TextField label="Lastname" name="lastname" className="form-control" onChange={handleChange} required /></Grid>
                         <Grid item xs><TextField type="text" label="Username" name="username" className="form-control" onChange={handleChange} required /></Grid>
                     </Grid>
 
                     <Grid container spacing={3}>
-                        <Grid item xs><TextField id="standard-basic" label="Sub-District" name="subdistrict" className="form-control" onChange={handleChange} required /></Grid>
-                        <Grid item xs><TextField id="standard-basic" label="District" name="district" className="form-control" onChange={handleChange} required /></Grid>
-                        <Grid item xs><TextField id="standard-basic" label="Province" name="province" className="form-control" onChange={handleChange} required /></Grid>
+                        <Grid item xs><TextField label="Sub-District" name="subdistrict" className="form-control" onChange={handleChange} required /></Grid>
+                        <Grid item xs><TextField label="District" name="district" className="form-control" onChange={handleChange} required /></Grid>
+                        <Grid item xs><TextField label="Province" name="province" className="form-control" onChange={handleChange} required /></Grid>
                     </Grid>
 
                     <Grid container spacing={3}>

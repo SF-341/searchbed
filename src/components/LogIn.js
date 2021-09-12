@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "./Auth";
 import firebaseConfig from "../config";
+import GetUser from './GetUserprofile'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Button, Paper, Container, Card, Box } from '@material-ui/core';
 
 const LogIn = () => {
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
@@ -14,7 +16,10 @@ const LogIn = () => {
     try {
       firebaseConfig
         .auth()
-        .signInWithEmailAndPassword(email.value, password.value);
+        .signInWithEmailAndPassword(email.value, password.value).then(() => {
+          GetUser.getUser(email.value)
+        })
+      
     } catch (error) {
       alert(error);
     }
@@ -32,10 +37,10 @@ const LogIn = () => {
 
     card: {
       minWidth: 400,
-      background:'#F9F9F9',
+      background: '#F9F9F9',
     },
     headfront: {
-      color : "#515151",
+      color: "#515151",
     }
   }));
 
