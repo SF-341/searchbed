@@ -88,7 +88,6 @@ const SignUp = () => {
             <div className="container mt-5">
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
-
                     <Grid container spacing={3}>
                         <Grid item xs><TextField type="text" label="Name" name="name" className="form-control" onChange={handleChange} required /></Grid>
                         <Grid item xs><TextField id="standard-basic" label="Lastname" name="lastname" className="form-control" onChange={handleChange} required /></Grid>

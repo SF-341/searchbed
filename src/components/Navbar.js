@@ -10,6 +10,7 @@ import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import GetUser from './GetUserprofile'
+import LOGO5 from '../LOGO/LOGO5.png'
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
@@ -73,7 +74,7 @@ const Navbar = () => {
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             CMTT
-            <i class="fab fa-typo3" />
+            <i src={LOGO5} alt="LOGO"/>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
