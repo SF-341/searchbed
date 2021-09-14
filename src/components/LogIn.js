@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect,Link } from "react-router-dom";
 import { AuthContext } from "./Auth";
 import firebaseConfig from "../config";
 import GetUser from './GetUserprofile'
@@ -70,6 +70,9 @@ const LogIn = () => {
               </Grid>
               <Grid item >
                 <Button type="submit" size="large" variant="outlined">Submit</Button>
+              </Grid>
+              <Grid item>
+              <p className="forgot-password text-right"><Link to={'/ResetPass'}>Forgot password?</Link></p>
               </Grid>
             </form>
           </Card>

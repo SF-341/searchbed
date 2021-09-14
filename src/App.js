@@ -9,6 +9,7 @@ import Navbar from './components/Navbar'
 import { AuthProvider } from './components/Auth'
 import RenderPost from './components/RenderPost'
 import Profile from './components/Profile'
+import ResetPass from './components/ResetPass'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/covidapi" component={Covidapi} />
           <Route exact path="/renderpost" component={RenderPost} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/resetpass" component={ResetPass} />
         </Switch>
       </Router>
     </AuthProvider>
