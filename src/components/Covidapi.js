@@ -95,7 +95,7 @@ const Covidapi = () => {
   return (
     <div>
       <Container>
-        <div Container className={classes.root}>
+        <div container className={classes.root}>
           <Grid container spacing={3}>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paper}>

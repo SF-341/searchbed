@@ -17,6 +17,7 @@ const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const userName = GetUser.getUserName();
+  console.log(userName);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -66,7 +67,7 @@ const Navbar = () => {
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             CMTT&nbsp;
-            <i class="far fa-comment" />
+            <i className="far fa-comment" />
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
