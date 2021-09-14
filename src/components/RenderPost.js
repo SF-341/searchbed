@@ -12,7 +12,7 @@ const RenderPost = () => {
 
     useEffect(() => {
 
-        let query = firebaseConfig.firestore().collection("Posts");
+        let query = firebaseConfig.firestore().collection("Posts").orderBy("dateTime", "desc");
         query.onSnapshot(querySnapshot => {
             const List = []
             const ListSnapshot = querySnapshot.docs;
