@@ -32,7 +32,7 @@ const CreatePost = () => {
                         refPost.add({ title, details, username, imageName, dateTime });
                     }else {
                         let imageName = null;
-                        refPost.add({ title, details, username, imageName, dateTime });
+                        refPost.add({ title, details, username, imageName, dateTime, like: 0 , checklike: true});
                     }
                     
                 }
