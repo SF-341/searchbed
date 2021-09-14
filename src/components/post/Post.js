@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { firestore, storage } from '../../config'
 
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -28,6 +29,8 @@ const Post = ({ id }) => {
     const [dateTime, setDateTime] = useState();
     const [Url, setUrl] = useState("");
     const [checkImg, setCheckImg] = useState(false);
+    const [like, setLike] = useState();
+    const [checkLike, setCheckLike] = useState();
 
     let storageRef = storage.ref();
     let documentRef = firestore.doc("Posts/" + id);
@@ -37,6 +40,9 @@ const Post = ({ id }) => {
         setDetails(data.details);
         setUsername(data.username);
         setDateTime(data.dateTime);
+        setLike(data.like);
+        setCheckLike(data.checklike)
+
 
         if (data.imageName != null) {
             setCheckImg(true);
@@ -74,6 +80,9 @@ const Post = ({ id }) => {
         avatar: {
             backgroundColor: red[500],
         },
+        icon: {
+            color: red[500],
+        },
     }));
 
     const [expanded, setExpanded] = useState(false);
@@ -81,6 +90,27 @@ const Post = ({ id }) => {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+
+    function deletePost() {
+        documentRef.delete();
+    }
+
+    const likePost = () => {
+        if (checkLike) {
+            setCheckLike(false)
+            documentRef.update({
+                like: like + 1,
+                checklike: false,
+            });
+        }else {
+            setCheckLike(true)
+            documentRef.update({
+                like: like + -1,
+                checklike: true,
+            })
+        }
+    }
 
 
     const classes = useStyles();
@@ -106,14 +136,15 @@ const Post = ({ id }) => {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                <IconButton aria-label="add to favorites" onClick = {likePost}>
+                    {checkLike? <FavoriteIcon /> : <FavoriteIcon color="secondary"/>}
+                    &nbsp;&nbsp;{like}&nbsp;
                 </IconButton>
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
-                <IconButton aria-label="DeleteIcon">
-                    <DeleteIcon fontSize="large" />
+                <IconButton aria-label="DeleteIcon" onClick = {deletePost}>
+                    <DeleteIcon fontSize="large" /> 
                 </IconButton>
                 <IconButton
                     className={clsx(classes.expand, {
