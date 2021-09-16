@@ -6,20 +6,12 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-}));
+
 
 const Test = () => {
-    const [province, setProvince] = useState(null);
-    const [district, setDistrict] = useState(null);
-    const [subdistrict, setSubdistrict] = useState(null);
+    const [province, setProvince] = useState("");
+    const [district, setDistrict] = useState("");
+    const [subdistrict, setSubdistrict] = useState("");
     const [dataProvince, setDataProvince] = useState();
     const [dataDistrict, setDataDistrict] = useState();
     const [dataSubDistrict, setDataSubDistrict] = useState();
@@ -30,7 +22,15 @@ const Test = () => {
             body: JSON.stringify(),
         }).then((response) => response.json())
             .then(result => {
-                setDataProvince(result.data);
+                const temp = [];
+                result.data.forEach(function(item, index) {
+                    temp.push({
+                            key: index,
+                            province: item.province,
+                    })
+                });
+                console.log(temp);
+                setDataProvince(temp);
             })
     }
 
@@ -40,7 +40,15 @@ const Test = () => {
             body: JSON.stringify(),
         }).then((response) => response.json())
             .then(result => {
-                setDataDistrict(result.data);
+                const temp = [];
+                result.data.forEach(function(item, index) {
+                    temp.push({
+                            key: index,
+                            district: item,
+                    })
+                });
+                console.log(temp);
+                setDataDistrict(temp);
             })
     }
 
@@ -50,11 +58,19 @@ const Test = () => {
             body: JSON.stringify(),
         }).then((response) => response.json())
             .then(result => {
-                setDataSubDistrict(result.data);
+                const temp = [];
+                result.data.forEach(function(item, index) {
+                    temp.push({
+                            key: index,
+                            subdistrict: item,
+                    })
+                });
+                console.log(temp);
+                setDataSubDistrict(temp);
             })
     }
 
-    
+
 
     const handleChange = (event) => {
         if (event.target.name === "province") {
@@ -71,12 +87,22 @@ const Test = () => {
 
 
     useEffect(() => {
-        if (province === null) {
+        if (province === "") {
             queryProvinces();
         }
 
     }, [])
-    console.log(dataDistrict);
+    
+    const useStyles = makeStyles((theme) => ({
+        formControl: {
+            margin: theme.spacing(1),
+            minWidth: 120,
+        },
+        selectEmpty: {
+            marginTop: theme.spacing(2),
+        },
+    }));
+
     const classes = useStyles();
 
     return (<div>
@@ -85,28 +111,28 @@ const Test = () => {
         <FormControl className={classes.formControl}>
             <InputLabel id="province"  >province</InputLabel>
             <Select labelId="province" id="province" name="province" value={province} onChange={handleChange}>
-
-                <MenuItem value=""><em>None</em></MenuItem>
-                {dataProvince ? dataProvince.map((key) => (<MenuItem value={key.province}>{key.province}</MenuItem>)) : <></>}
-
+                
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {dataProvince ? dataProvince.map((data) => (<MenuItem key={data.key} value={data.province}>{data.province}</MenuItem>)) : <></>}
+                
             </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-            <InputLabel id="district"  >district</InputLabel>
+            <InputLabel id=""  >district</InputLabel>
             <Select labelId="district" id="district" name="district" value={district} onChange={handleChange}>
-
-                <MenuItem value=""><em>None</em></MenuItem>
-                {dataDistrict ? dataDistrict.map((district) => (<MenuItem value={district}>{district}</MenuItem>)) : <></>}
-
+                
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    {dataDistrict ? dataDistrict.map((item) => (<MenuItem key={item.key} value={item.district}>{item.district}</MenuItem>)) : <></>}
+                
             </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-            <InputLabel id="subdistrict"  >subdistrict</InputLabel>
+            <InputLabel id=""  >subdistrict</InputLabel>
             <Select labelId="subdistrict" id="subdistrict" name="subdistrict" value={subdistrict} onChange={handleChange}>
 
                 <MenuItem value=""><em>None</em></MenuItem>
-                {dataSubDistrict ? dataSubDistrict.map((subdistrict) => (<MenuItem value={subdistrict}>{subdistrict}</MenuItem>)) : <></>}
-
+                    {dataSubDistrict ? dataSubDistrict.map((item) => (<MenuItem key={item.key} value={item.subdistrict}>{item.subdistrict}</MenuItem>)) : <></>}
+                
             </Select>
         </FormControl>
     </div>)
