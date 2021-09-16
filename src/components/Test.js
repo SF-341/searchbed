@@ -17,6 +17,7 @@ const Test = () => {
     const [dataSubDistrict, setDataSubDistrict] = useState();
 
     const [ checkprovince, setCheck] = useState(false);
+    const wrapper = React.createRef();
 
     const queryProvinces = () => {
         fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces", {
@@ -110,7 +111,7 @@ const Test = () => {
 
     return (
     
-    <>
+    <div ref={wrapper}>
 
         <FormControl className={classes.formControl}>
             <InputLabel id="province"  >province</InputLabel>
@@ -140,7 +141,7 @@ const Test = () => {
             </Select>
         </FormControl>
 
-    </>)
+    </div>)
 
 }
 
