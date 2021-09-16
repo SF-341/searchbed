@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { firestore, storage } from '../../config'
+import Liked from '../Like'
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,7 +31,8 @@ const Post = ({ id }) => {
     const [Url, setUrl] = useState("");
     const [checkImg, setCheckImg] = useState(false);
     const [like, setLike] = useState();
-    const [checkLike, setCheckLike] = useState();
+    const checkLike  = Liked(id);
+
 
     let storageRef = storage.ref();
     let documentRef = firestore.doc("Posts/" + id);
@@ -41,7 +43,8 @@ const Post = ({ id }) => {
         setUsername(data.username);
         setDateTime(data.dateTime);
         setLike(data.like);
-        setCheckLike(data.checklike)
+
+        
 
 
         if (data.imageName != null) {
@@ -58,6 +61,8 @@ const Post = ({ id }) => {
         }
 
     })
+
+
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -97,19 +102,20 @@ const Post = ({ id }) => {
     }
 
     const likePost = () => {
-        if (checkLike) {
-            setCheckLike(false)
-            documentRef.update({
-                like: like + 1,
-                checklike: false,
-            });
-        }else {
-            setCheckLike(true)
-            documentRef.update({
-                like: like + -1,
-                checklike: true,
-            })
-        }
+        
+        // if (checkLike) {
+        //     setCheckLike(false)
+        //     documentRef.update({
+        //         like: like + 1,
+        //         checklike: false,
+        //     });
+        // }else {
+        //     setCheckLike(true)
+        //     documentRef.update({
+        //         like: like + -1,
+        //         checklike: true,
+        //     })
+        // }
     }
 
 
@@ -137,7 +143,7 @@ const Post = ({ id }) => {
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites" onClick = {likePost}>
-                    {checkLike? <FavoriteIcon /> : <FavoriteIcon color="secondary"/>}
+                    {checkLike ?  <FavoriteIcon color="secondary"/> : <FavoriteIcon />}
                     &nbsp;&nbsp;{like}&nbsp;
                 </IconButton>
                 <IconButton aria-label="share">
