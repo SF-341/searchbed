@@ -16,6 +16,8 @@ const Test = () => {
     const [dataDistrict, setDataDistrict] = useState();
     const [dataSubDistrict, setDataSubDistrict] = useState();
 
+    const [ checkprovince, setCheck] = useState(false);
+
     const queryProvinces = () => {
         fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces", {
             method: "GET",
@@ -31,6 +33,7 @@ const Test = () => {
                 });
                 console.log(temp);
                 setDataProvince(temp);
+                setCheck(true);
             })
     }
 
@@ -87,7 +90,7 @@ const Test = () => {
 
 
     useEffect(() => {
-        if (province === "") {
+        if (!checkprovince) { 
             queryProvinces();
         }
 
@@ -105,15 +108,16 @@ const Test = () => {
 
     const classes = useStyles();
 
-    return (<div>
-
+    return (
+    
+    <>
 
         <FormControl className={classes.formControl}>
             <InputLabel id="province"  >province</InputLabel>
             <Select labelId="province" id="province" name="province" value={province} onChange={handleChange}>
                 
                     <MenuItem value=""><em>None</em></MenuItem>
-                    {dataProvince ? dataProvince.map((data) => (<MenuItem key={data.key} value={data.province}>{data.province}</MenuItem>)) : <></>}
+                    {dataProvince ? dataProvince.map((data) => ( <MenuItem key={data.key} value={data.province}>{data.province}</MenuItem>)) : "<></>"}
                 
             </Select>
         </FormControl>
@@ -122,7 +126,7 @@ const Test = () => {
             <Select labelId="district" id="district" name="district" value={district} onChange={handleChange}>
                 
                     <MenuItem value=""><em>None</em></MenuItem>
-                    {dataDistrict ? dataDistrict.map((item) => (<MenuItem key={item.key} value={item.district}>{item.district}</MenuItem>)) : <></>}
+                    {dataDistrict ? dataDistrict.map((item) => (<MenuItem key={item.key} value={item.district}>{item.district}</MenuItem>)) : "<></>"}
                 
             </Select>
         </FormControl>
@@ -131,11 +135,12 @@ const Test = () => {
             <Select labelId="subdistrict" id="subdistrict" name="subdistrict" value={subdistrict} onChange={handleChange}>
 
                 <MenuItem value=""><em>None</em></MenuItem>
-                    {dataSubDistrict ? dataSubDistrict.map((item) => (<MenuItem key={item.key} value={item.subdistrict}>{item.subdistrict}</MenuItem>)) : <></>}
+                    {dataSubDistrict ? dataSubDistrict.map((item) => (<MenuItem key={item.key} value={item.subdistrict}>{item.subdistrict}</MenuItem>)) : "<></>"}
                 
             </Select>
         </FormControl>
-    </div>)
+
+    </>)
 
 }
 
