@@ -15,12 +15,13 @@ const Test = () => {
     const [dataProvince, setDataProvince] = useState();
     const [dataDistrict, setDataDistrict] = useState();
     const [dataSubDistrict, setDataSubDistrict] = useState();
+    const [disabled, setDisabled] = useState(true);
 
     const [ checkprovince, setCheck] = useState(false);
     const wrapper = React.createRef();
 
-    const queryProvinces = () => {
-        fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces", {
+    const queryProvinces = async() => {
+        await fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces", {
             method: "GET",
             body: JSON.stringify(),
         }).then((response) => response.json())
@@ -38,8 +39,8 @@ const Test = () => {
             })
     }
 
-    async function queryDistrict(p) {
-        await fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/" + p + "/district", {
+    async function queryDistrict(province) {
+        await fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/" + province + "/district", {
             method: "GET",
             body: JSON.stringify(),
         }).then((response) => response.json())
@@ -56,8 +57,8 @@ const Test = () => {
             })
     }
 
-    async function querySubDistrict(d) {
-        await fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/" + province + "/district/" + d, {
+    async function querySubDistrict(district) {
+        await fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/" + province + "/district/" + district, {
             method: "GET",
             body: JSON.stringify(),
         }).then((response) => response.json())
@@ -93,6 +94,7 @@ const Test = () => {
     useEffect(() => {
         if (!checkprovince) { 
             queryProvinces();
+            setDisabled(false);
         }
 
     }, [])
@@ -113,12 +115,12 @@ const Test = () => {
     
     <div ref={wrapper}>
 
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} disabled={disabled}>
             <InputLabel id="province"  >province</InputLabel>
             <Select labelId="province" id="province" name="province" value={province} onChange={handleChange}>
                 
                     <MenuItem value=""><em>None</em></MenuItem>
-                    {dataProvince ? dataProvince.map((data) => ( <MenuItem key={data.key} value={data.province}>{data.province}</MenuItem>)) : "<></>"}
+                    {dataProvince ? dataProvince.map((data) => ( <MenuItem key={data.key} value={data.province}>{data.province}</MenuItem>)) : ""}
                 
             </Select>
         </FormControl>
@@ -127,7 +129,7 @@ const Test = () => {
             <Select labelId="district" id="district" name="district" value={district} onChange={handleChange}>
                 
                     <MenuItem value=""><em>None</em></MenuItem>
-                    {dataDistrict ? dataDistrict.map((item) => (<MenuItem key={item.key} value={item.district}>{item.district}</MenuItem>)) : "<></>"}
+                    {dataDistrict ? dataDistrict.map((item) => (<MenuItem key={item.key} value={item.district}>{item.district}</MenuItem>)) : ""}
                 
             </Select>
         </FormControl>
@@ -136,7 +138,7 @@ const Test = () => {
             <Select labelId="subdistrict" id="subdistrict" name="subdistrict" value={subdistrict} onChange={handleChange}>
 
                 <MenuItem value=""><em>None</em></MenuItem>
-                    {dataSubDistrict ? dataSubDistrict.map((item) => (<MenuItem key={item.key} value={item.subdistrict}>{item.subdistrict}</MenuItem>)) : "<></>"}
+                    {dataSubDistrict ? dataSubDistrict.map((item) => (<MenuItem key={item.key} value={item.subdistrict}>{item.subdistrict}</MenuItem>)) : ""}
                 
             </Select>
         </FormControl>

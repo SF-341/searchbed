@@ -8,47 +8,47 @@ import { TextField, Grid, Button } from '@material-ui/core';
 import firebaseConfig, { storage, firestore } from '../config'
 import GetUser from './GetUserprofile'
 import { AuthContext } from './Auth'
+import FethUser from './FethUser'
+
 
 const Profile = () => {
 
   const { currentUser } = useContext(AuthContext);
-  const [userInfo, setUserInfo] = useState(GetUser.ListUser);
-  const [firstName, setFirstName] = useState(userInfo.name);
-  const [lastName, setLastName] = useState(userInfo.lastname);
-  const [userName, setUserName] = useState(userInfo.username);
-  const [email, setEmail] = useState(userInfo.email);
-  const [subDistrict, setSubDistrict] = useState(userInfo.subdistrict);
-  const [district, setDistrict] = useState(userInfo.district);
-  const [province, setProvince] = useState(userInfo.province);
+  const { data } = FethUser();
+  console.log(data)
+
+
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [userName, setUserName] = useState();
+  const [email, setEmail] = useState();
+  const [subDistrict, setSubDistrict] = useState();
+  const [district, setDistrict] = useState();
+  const [province, setProvince] = useState();
   const [submit, setSubmit] = useState(true);
   const [text, setText] = useState(true);
 
 
-  useEffect(() => {
-    if (localStorage.getItem('firstName') === null) {
-      window.onbeforeunload = function () {
-        localStorage.setItem('firstName', userInfo.name);
-    localStorage.setItem('lastName', userInfo.lastname);
-    localStorage.setItem('userName', userName);
-    localStorage.setItem('email', email);
-    localStorage.setItem('subDistrict', subDistrict);
-    localStorage.setItem('district', district);
-    localStorage.setItem('province', province);
-      };
-    }
-
-
-  }, [])
-
-  const whenReload = () => {
-    localStorage.setItem('firstName', firstName);
-    localStorage.setItem('lastName', lastName);
-    localStorage.setItem('userName', userInfo.username);
-    localStorage.setItem('email', userInfo.email);
-    localStorage.setItem('subDistrict', userInfo.subdistrict);
-    localStorage.setItem('district', userInfo.district);
-    localStorage.setItem('province', userInfo.province);
+  function setData() {
+    setFirstName(data.name);
+    setLastName(data.lastname);
+    setUserName(data.username);
+    setEmail(data.email);
+    setSubDistrict(data.subdistrict);
+    setDistrict(data.district);
+    setProvince(data.province);
   }
+
+
+  useEffect(() => {
+    console.log("dasd")
+    if (data !== null) {
+      console.log(data.name)
+      setData()
+    }
+  })
+
+
 
   const handleChange = (e) => {
     if (e.target.name === "firstname") {
@@ -67,14 +67,14 @@ const Profile = () => {
   }
 
   const edit = () => {
+    setFirstName("Asdsad");
     setSubmit(false);
     setText(false);
-
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.clear();
+
     const ref = firestore.doc("User/" + GetUser.id);
     try {
       ref.update({
@@ -85,27 +85,14 @@ const Profile = () => {
         district: district,
         province: province,
       }).then(function () {
-        whenReload();
         setSubmit(true);
         setText(true);
       });
     } catch (error) {
       alert(error);
     }
-
-
-
   }
 
-  if (email === undefined) {
-    setFirstName(localStorage.getItem('firstName'));
-    setLastName(localStorage.getItem('lastName'));
-    setUserName(localStorage.getItem('userName'));
-    setEmail(localStorage.getItem('email'));
-    setSubDistrict(localStorage.getItem('subDistrict'));
-    setDistrict(localStorage.getItem('district'));
-    setProvince(localStorage.getItem('province'))
-  }
 
   const useStyles = makeStyles((theme) => ({
     root: {

@@ -7,30 +7,32 @@ import { Container } from '@material-ui/core'
 import Post from './post/Post';
 
 const RenderPost = () => {
-
     const [postList, setPostList] = useState();
 
-    useEffect(() => {
-
-        let query = firebaseConfig.firestore().collection("Posts").orderBy("dateTime", "desc");
-        query.onSnapshot(querySnapshot => {
-            const List = []
+    async function fecthPost() {
+        const res = await firebaseConfig.firestore().collection("Posts").orderBy("dateTime", "desc");
+        await res.onSnapshot(querySnapshot => {
+            const List = [];
             const ListSnapshot = querySnapshot.docs;
-            ListSnapshot.forEach(doc => {
-                List.push(doc.id);
-            })
+            ListSnapshot.forEach(function (doc, index) {
+                List.push({
+                    key: index,
+                    id: doc.id,
+                });
+            });
             setPostList(List);
         }
         );
+    }
 
+    useEffect(() => {
+        fecthPost();
     }, [])
-
-
 
     return (
         <Container>
             <div>
-                {postList && postList.map((key) => (<Post id={key} />))}
+                {postList && postList.map((data) => (<Post key={data.key} id={data.id} />))}
             </div>
         </Container>
 
