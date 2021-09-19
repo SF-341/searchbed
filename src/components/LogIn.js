@@ -5,7 +5,7 @@ import firebaseConfig from "../config";
 import GetUser from './GetUserprofile'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid, Button, Paper, Container, Card, Box } from '@material-ui/core';
+import { TextField, Grid, Button, Card } from '@material-ui/core';
 
 const LogIn = () => {
 

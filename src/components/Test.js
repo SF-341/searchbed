@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -16,8 +15,7 @@ const Test = () => {
     const [dataDistrict, setDataDistrict] = useState();
     const [dataSubDistrict, setDataSubDistrict] = useState();
     const [disabled, setDisabled] = useState(true);
-
-    const [ checkprovince, setCheck] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const wrapper = React.createRef();
 
     const queryProvinces = async() => {
@@ -35,7 +33,7 @@ const Test = () => {
                 });
                 console.log(temp);
                 setDataProvince(temp);
-                setCheck(true);
+                
             })
     }
 
@@ -91,13 +89,12 @@ const Test = () => {
     };
 
 
-    useEffect(() => {
-        if (!checkprovince) { 
-            queryProvinces();
-            setDisabled(false);
-        }
-
-    }, [])
+    if(isLoading){
+        queryProvinces();
+        setDisabled(false);
+        setIsLoading(false);
+    }
+    
     
     const useStyles = makeStyles((theme) => ({
         formControl: {

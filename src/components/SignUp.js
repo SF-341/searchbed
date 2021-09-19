@@ -53,7 +53,7 @@ const SignUp = () => {
 
         const { email, password, confirmPassword } = e.target.elements;
 
-        if (password.value != confirmPassword.value) {
+        if (password.value !== confirmPassword.value) {
             alert("passwords are not the same");
         } else {
             try {

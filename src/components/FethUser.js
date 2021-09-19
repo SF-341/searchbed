@@ -1,5 +1,7 @@
-import { useReducer, useEffect } from 'react'
+import { useReducer, useEffect, useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 import firebaseConfig, { firestore } from '../config'
+import { AuthContext } from './Auth'
 
 const initialState = {
     loading: "",
@@ -21,27 +23,34 @@ function apiUser(state, action) {
 }
 
 export default function FethUser() {
+    const { currentUser } = useContext(AuthContext);
     const [data, dispatch] = useReducer(apiUser, initialState);
 
     const Auth = firebaseConfig.auth();
     const user = Auth.currentUser;
-    const email = user.email;
+
     const refUser = firestore.collection("User");
 
     useEffect(() => {
-        dispatch({ type: "DATA_FETCH_START" });
+        if (currentUser) {
+            dispatch({ type: "DATA_FETCH_START" });
+            refUser.onSnapshot(querySnapshot => {
+                const ListSnapshot = querySnapshot.docs;
+                ListSnapshot.forEach(doc => {
+                    if (doc.data().email === user.email) {
+                        dispatch({ type: "DATA_FETCH_ID", payload: doc.id });
+                        dispatch({ type: "DATA_FETCH_SUCCESS", payload: doc.data() });
+                    }
+                });
+            })
+        }
 
-        refUser.onSnapshot(querySnapshot => {
-            const ListSnapshot = querySnapshot.docs;
-            ListSnapshot.forEach(doc => {
-                if (doc.data().email === email) {
-                    dispatch({ type: "DATA_FETCH_ID", payload: doc.id });
-                    dispatch({ type: "DATA_FETCH_SUCCESS", payload: doc.data() });
-                }
-            });
-        })
 
     }, [])
+
+    if (!currentUser) {
+        return <Redirect to="/login" />;
+    }
 
     return data;
 }

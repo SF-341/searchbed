@@ -89,7 +89,7 @@ const Post = ({ id }) => {
 
         fetchdata();
 
-    }, [])
+    })
 
 
 

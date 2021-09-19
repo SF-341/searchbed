@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { AuthContext } from './Auth'
 import CreatePost from './post/CreatePost'
 import RenderPost from './RenderPost'
