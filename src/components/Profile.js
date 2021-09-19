@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-
-
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Button } from '@material-ui/core';
-
-import firebaseConfig, { storage, firestore } from '../config'
-import GetUser from './GetUserprofile'
+import { firestore } from '../config'
 import { AuthContext } from './Auth'
 import FethUser from './FethUser'
 
@@ -14,9 +10,7 @@ import FethUser from './FethUser'
 const Profile = () => {
 
   const { currentUser } = useContext(AuthContext);
-  const { data } = FethUser();
-  console.log(data)
-
+  const  data  = FethUser();
 
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -27,27 +21,25 @@ const Profile = () => {
   const [province, setProvince] = useState();
   const [submit, setSubmit] = useState(true);
   const [text, setText] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
 
   function setData() {
-    setFirstName(data.name);
-    setLastName(data.lastname);
-    setUserName(data.username);
-    setEmail(data.email);
-    setSubDistrict(data.subdistrict);
-    setDistrict(data.district);
-    setProvince(data.province);
+    setFirstName(data.data.name);
+    setLastName(data.data.lastname);
+    setUserName(data.data.username);
+    setEmail(data.data.email);
+    setSubDistrict(data.data.subdistrict);
+    setDistrict(data.data.district);
+    setProvince(data.data.province);
   }
 
-
-  useEffect(() => {
-    console.log("dasd")
-    if (data !== null) {
-      console.log(data.name)
+  if(isLoading){
+    if(data.loading){
       setData()
+      setIsLoading(false);
     }
-  })
-
+  }
 
 
   const handleChange = (e) => {
@@ -75,7 +67,7 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const ref = firestore.doc("User/" + GetUser.id);
+    const ref = firestore.doc("User/" + data.id);
     try {
       ref.update({
         name: firstName,
@@ -107,8 +99,8 @@ const Profile = () => {
   return (
 
     <div className="container mt-5">
-      {!currentUser ? <Redirect to="/" /> : <></>}
-      <h1>Profile</h1>
+      {!currentUser ? <Redirect to="/" /> : ""}
+      {!isLoading ? <><h1>Profile</h1>
       <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
         <Grid container spacing={5}>
           <Grid item xs={8}><TextField label="Name" name="firstname" className="form-control" disabled={text} defaultValue={firstName} onChange={handleChange} /></Grid>
@@ -124,11 +116,10 @@ const Profile = () => {
           <Grid item ><Button type="submit" size="large" variant="outlined" disabled={submit}>Submit</Button></Grid>
         </Grid>
 
-      </form>
+      </form></> : ""}
+      
     </div>
   );
-
-
 }
 
 export default Profile;

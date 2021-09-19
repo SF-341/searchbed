@@ -9,15 +9,29 @@ import { deepPurple } from "@material-ui/core/colors";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import GetUser from './GetUserprofile'
+import FethUser from './FethUser'
 
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
+  const data = FethUser();
+
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-  const userName = GetUser.getUserName();
-  console.log(userName);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userName, setUserName] = useState('');
+
+
+  function setData() {
+    setUserName(data.data.username);
+  }
+
+  if (isLoading) {
+    if (data.loading) {
+      setData()
+      setIsLoading(false);
+    }
+  }
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -26,7 +40,6 @@ const Navbar = () => {
     firebaseConfig.auth().signOut();
     <Redirect to="/" />
     setClick(false);
-    GetUser.clearUser();
   };
 
 

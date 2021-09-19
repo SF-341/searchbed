@@ -2,7 +2,8 @@ import { useReducer, useEffect } from 'react'
 import firebaseConfig, { firestore } from '../config'
 
 const initialState = {
-    loading: false,
+    loading: "",
+    id: "",
     data: null,
 }
 
@@ -10,6 +11,8 @@ function apiUser(state, action) {
     switch (action.type) {
         case "DATA_FETCH_START":
             return { ...state, loading: false };
+        case "DATA_FETCH_ID":
+            return { ...state, loading: false, id: action.payload };
         case "DATA_FETCH_SUCCESS":
             return { ...state, loading: true, data: action.payload };
         default:
@@ -32,6 +35,7 @@ export default function FethUser() {
             const ListSnapshot = querySnapshot.docs;
             ListSnapshot.forEach(doc => {
                 if (doc.data().email === email) {
+                    dispatch({ type: "DATA_FETCH_ID", payload: doc.id });
                     dispatch({ type: "DATA_FETCH_SUCCESS", payload: doc.data() });
                 }
             });

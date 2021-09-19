@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 console.log("id")
 const Post = ({ id }) => {
-    
+
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
     const [username, setUsername] = useState();
@@ -56,9 +56,6 @@ const Post = ({ id }) => {
     const [checkImg, setCheckImg] = useState(false);
     const [like, setLike] = useState();
     const [checkLike, setCheckLike] = useState("");
-
-
-    
 
 
     const storageRef = storage.ref();
@@ -71,7 +68,7 @@ const Post = ({ id }) => {
             setUsername(data.username);
             setDateTime(data.dateTime);
             setLike(data.like);
-           
+
             if (data.imageName != null) {
                 setCheckImg(true);
                 var imgRef = storageRef.child('images/' + data.imageName);
@@ -95,7 +92,7 @@ const Post = ({ id }) => {
     }, [])
 
 
-    
+
 
     const [expanded, setExpanded] = useState(false);
 
