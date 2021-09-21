@@ -80,7 +80,7 @@ const LogIn = () => {
 
 
         <Grid container justifyContent="center" xs={12} md={6} >
-          <h5>asdasdasd</h5>
+          <h5></h5>
         </Grid>
       </Grid>
 

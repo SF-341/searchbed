@@ -17,23 +17,28 @@ const Covidapi = () => {
   const [items, setItems] = useState([]);
   const [checkItems, setCheckItems] = useState(true);
 
-  useEffect(() => {
-    fetch("https://covid19.ddc.moph.go.th/api/Cases/today-cases-all", {
+  async function fecthCovidapi() {
+    await fetch("https://covid19.ddc.moph.go.th/api/Cases/today-cases-all", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(),
     }).then((response) => response.json())
       .then(result => {
         if (result.length === 0) {
           setCheckItems(false);
-        }else{
+        } else {
           setItems(result[0]);
         }
-        
       })
+
+
+  }
+
+  useEffect(() => {
+    fecthCovidapi()
+
   }, [])
 
   const useStyles = makeStyles((theme) => ({
@@ -111,17 +116,17 @@ const Covidapi = () => {
                   Total case
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {checkItems ? items.total_case: "0"}
+                  {checkItems ? items.total_case : "0"}
                 </Typography></Paper>
             </Grid>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paper}>
-                
-                  <Box className={classes.boxBlue} bgcolor="primary.main" color="primary.contrastText">
+
+                <Box className={classes.boxBlue} bgcolor="primary.main" color="primary.contrastText">
                   <Typography variant="h5" color="inherit">New case excludeabroad</Typography>
-                    
-                  </Box>
-                
+
+                </Box>
+
                 <Typography variant="h6" color="inherit">
                   {checkItems ? items.new_case_excludeabroad : "0"}
                 </Typography>
@@ -163,7 +168,7 @@ const Covidapi = () => {
                   Total recovered
                 </Typography>
                 <Typography variant="h6" color="inherit">
-                  {checkItems ? items.total_recovered : "0"} 
+                  {checkItems ? items.total_recovered : "0"}
                 </Typography>
               </Paper>
             </Grid>

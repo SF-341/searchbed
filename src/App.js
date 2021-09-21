@@ -10,7 +10,7 @@ import { AuthProvider } from './components/Auth'
 import RenderPost from './components/RenderPost'
 import Profile from './components/Profile'
 import ResetPass from './components/ResetPass'
-import Test from './components/Test'
+
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
           <Route exact path="/renderpost" component={RenderPost} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/resetpass" component={ResetPass} />
-          <Route exact path="/test" component={Test} />
+          
         </Switch>
       </Router>
     </AuthProvider>

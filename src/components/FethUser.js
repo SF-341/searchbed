@@ -25,7 +25,6 @@ function apiUser(state, action) {
 export default function FethUser() {
     const { currentUser } = useContext(AuthContext);
     const [data, dispatch] = useReducer(apiUser, initialState);
-
     const Auth = firebaseConfig.auth();
     const user = Auth.currentUser;
 
@@ -44,7 +43,6 @@ export default function FethUser() {
                 });
             })
         }
-
 
     }, [])
 

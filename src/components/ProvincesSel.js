@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 
 
 
-const Test = () => {
+const ProvincesSel = () => {
     const [province, setProvince] = useState("");
     const [district, setDistrict] = useState("");
     const [subdistrict, setSubdistrict] = useState("");
@@ -18,7 +18,7 @@ const Test = () => {
     const [isLoading, setIsLoading] = useState(true);
     const wrapper = React.createRef();
 
-    const queryProvinces = async() => {
+    async function queryProvinces () {
         await fetch("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces", {
             method: "GET",
             body: JSON.stringify(),
@@ -81,7 +81,7 @@ const Test = () => {
             queryDistrict(event.target.value);
         } else if (event.target.name === "district") {
             setDistrict(event.target.value);
-            querySubDistrict(event.target.value);
+            
         } else if (event.target.name === "subdistrict") {
             setSubdistrict(event.target.value);
         }
@@ -145,4 +145,4 @@ const Test = () => {
 }
 
 
-export default Test
+export default ProvincesSel
