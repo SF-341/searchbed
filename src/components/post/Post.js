@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
-import { firestore, storage } from '../../config'
+import firebaseConfig, { firestore, storage } from '../../config'
 import { Liked, DelLikeid, SetLikeid } from '../Like'
 
 
@@ -47,15 +47,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 console.log("id")
 const Post = ({ id }) => {
+    const Auth = firebaseConfig.auth();
+    const user = Auth.currentUser;
 
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
     const [username, setUsername] = useState();
+    
     const [dateTime, setDateTime] = useState();
     const [Url, setUrl] = useState("");
     const [checkImg, setCheckImg] = useState(false);
     const [like, setLike] = useState();
     const [checkLike, setCheckLike] = useState("");
+    const [checkDelete, setCheckDelete] = useState();
 
 
     const storageRef = storage.ref();
@@ -68,6 +72,7 @@ const Post = ({ id }) => {
             setUsername(data.username);
             setDateTime(data.dateTime);
             setLike(data.like);
+            setCheckDelete(user.email === data.email);
 
             if (data.imageName != null) {
                 setCheckImg(true);
@@ -86,9 +91,7 @@ const Post = ({ id }) => {
     }
 
     useEffect(() => {
-
         fetchdata();
-
     })
 
 
@@ -137,9 +140,12 @@ const Post = ({ id }) => {
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
+
+                {checkDelete ? 
                 <IconButton aria-label="DeleteIcon" onClick={deletePost}>
                     <DeleteIcon fontSize="large" />
-                </IconButton>
+                </IconButton> : ''}
+
                 <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,

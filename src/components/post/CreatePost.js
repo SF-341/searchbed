@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import {Typography, Button, Container, makeStyles, TextField} from '@material-ui/core'
+import { v4 as uuidv4 } from 'uuid'
+import { Typography, Button, Container, makeStyles, TextField } from '@material-ui/core'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 
 
-import firebaseConfig,{ storage,firestore } from '../../config'
+import firebaseConfig, { storage, firestore } from '../../config'
+
 
 
 const CreatePost = () => {
@@ -26,15 +28,42 @@ const CreatePost = () => {
                 if (doc.data().email === email) {
                     let username = doc.data().username;
                     let dateTime = Date();
+
                     if (image != null) {
-                        let imageName =image.name;
+                        let imageName = image.name;
+                        const newPost = {
+                            id: uuidv4(),
+                            title, 
+                            details,
+                            email, 
+                            username, 
+                            imageName, 
+                            dateTime
+                        }
                         uploadimage();
-                        refPost.add({ title, details, username, imageName, dateTime });
-                    }else {
+                        refPost
+                        .doc(newPost.id)
+                        .set(newPost)
+                        .catch((error) => { console.log(error); });
+
+
+                    } else {
                         let imageName = null;
-                        refPost.add({ title, details, username, imageName, dateTime, like: 0 , checklike: true});
+                        const newPost = {
+                            id: uuidv4(),
+                            title, 
+                            details,
+                            email, 
+                            username, 
+                            imageName, 
+                            dateTime
+                        }
+                        refPost
+                        .doc(newPost.id)
+                        .set(newPost)
+                        .catch((error) => { console.log(error); });
                     }
-                    
+
                 }
             })
         }
@@ -42,7 +71,7 @@ const CreatePost = () => {
     }
 
     const uploadimage = () => {
-        storage.ref('images/'+image.name).put(image);
+        storage.ref('images/' + image.name).put(image);
     }
 
     const handleChange = (e) => {
@@ -63,7 +92,7 @@ const CreatePost = () => {
     }
 
     const useStyles = makeStyles({
-        
+
         field: {
 
             maxWidth: 700,

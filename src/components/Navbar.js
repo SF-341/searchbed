@@ -22,13 +22,9 @@ const Navbar = () => {
   const [userName, setUserName] = useState('');
 
 
-  function setData() {
-    setUserName(data.data.username);
-  }
-
   if (isLoading) {
     if (data.loading) {
-      setData()
+      setUserName(data.data.username);
       setIsLoading(false);
     }
   }
@@ -36,9 +32,9 @@ const Navbar = () => {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const closeMobileMenuSignout = () => {
-    localStorage.clear();
+    
     firebaseConfig.auth().signOut();
-    <Redirect to="/" />
+    
     setClick(false);
   };
 

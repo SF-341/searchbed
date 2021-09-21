@@ -16,12 +16,10 @@ const LogIn = () => {
     try {
       firebaseConfig
         .auth()
-        .signInWithEmailAndPassword(email.value, password.value).then(() => {
-          GetUser.getUser(email.value)
-        })
+        .signInWithEmailAndPassword(email.value, password.value)
       
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
   };
   const useStyles = makeStyles((theme) => ({

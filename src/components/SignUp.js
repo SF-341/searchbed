@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import firebaseConfig from '../config'
-import GetUser from './GetUserprofile'
+import { v4 as uuidv4 } from 'uuid'
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Button } from '@material-ui/core';
@@ -35,7 +36,18 @@ const SignUp = () => {
     const wrapper = React.createRef();
 
     const addUser = () => {
-        ref.add({ name, lastname, username, email, subdistrict, district, province });
+        const newUser = {
+            id: uuidv4(),
+            name, 
+            lastname, 
+            username, 
+            email, 
+            subdistrict, 
+            district, 
+            province
+        }
+        ref.doc(newUser.id).set(newUser).catch((error) => {alert(error.message);});
+
     }
 
     async function QueryProvinces() {
@@ -134,11 +146,10 @@ const SignUp = () => {
                 firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => {
                     setCurrentUser(true);
                     addUser();
-                    GetUser.getUser(email.value)
                 })
 
             } catch (error) {
-                alert(error);
+                alert(error.message);
             }
         }
 
